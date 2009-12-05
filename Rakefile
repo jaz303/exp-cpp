@@ -4,12 +4,12 @@ task :clean do
 end
 
 rule '.o' => '.cpp' do |t|
-  sh "g++ #{t.source} -c -o #{t.name}"
+  sh "g++ -I/opt/local/include #{t.source} -c -o #{t.name}"
 end
 
-%w(copy_constructors references).each do |exe|
+%w(copy_constructors references auto_ptr boost_ptr).each do |exe|
   file exe => "#{exe}.o" do
-    sh "g++ -o #{exe} #{exe}.o"
+    sh "g++ -I/opt/local/include -o #{exe} #{exe}.o"
   end
   task :all => exe
   task :clean do
