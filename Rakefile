@@ -7,7 +7,7 @@ rule '.o' => '.cpp' do |t|
   sh "g++ -I/opt/local/include #{t.source} -c -o #{t.name}"
 end
 
-%w(copy_constructors references auto_ptr boost_ptr).each do |exe|
+%w(copy_constructors references auto_ptr boost_ptr boost_foreach).each do |exe|
   file exe => "#{exe}.o" do
     sh "g++ -I/opt/local/include -o #{exe} #{exe}.o"
   end
