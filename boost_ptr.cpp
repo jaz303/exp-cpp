@@ -48,15 +48,39 @@ void shared_ptr() {
     boost::shared_ptr<Foo> e(new Foo);
     boost::shared_ptr<Foo> f(e);
     
+    std::cout << e.use_count() << "\n";
+    std::cout << f.use_count() << "\n";
+    
+    f.reset();
+    
+    std::cout << e.use_count() << "\n";
+    
     if (e == f) {
         std::cout << "equal!\n";
     }
+}
+
+void weak_ptr() {
+    std::cout << "\nweak ptr\n";
+    
+    boost::shared_ptr<int> a(new int);
+    boost::weak_ptr<int> b(a);
+    
+    *a = 10;
+    std::cout << b.expired() << "\n";
+    std::cout << *b.lock() << "\n";
+    
+    a.reset();
+    
+    std::cout << b.expired() << "\n";
+    
 }
 
 int main(int argc, char* argv[]) {
     scoped_ptr();
     scoped_array();
     shared_ptr();
+    weak_ptr();
     
     return 0;
 }
